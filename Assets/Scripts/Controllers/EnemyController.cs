@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour {
 
     public float lookRadius = 10f;
-    public Transform target;
+    public float ReclutationRadius = 12f;
+    public string estado = "esperando";
+    Transform target;
     NavMeshAgent agent;
 
 	// Use this for initialization
@@ -21,6 +23,7 @@ public class EnemyController : MonoBehaviour {
     {
         float distance = Vector3.Distance(target.position, transform.position);
 
+
         if(distance <= lookRadius)
         {
             agent.SetDestination(target.position);
@@ -31,7 +34,8 @@ public class EnemyController : MonoBehaviour {
                 FaceTarget();
             }
         }
-	}
+
+    }
 
     void FaceTarget()
     {

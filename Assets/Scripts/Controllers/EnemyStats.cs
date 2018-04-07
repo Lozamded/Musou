@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemigoStats : MonoBehaviour {
+public class EnemyStats : MonoBehaviour {
 
-    float vida = Random.Range(10f,20f);
-    
+    int vida = Random.Range(10,20);
+    int resistencia = 0;
+    int velocidad = 0;
+    int ataque = 0;
+
+    public bool es_lider = false;
+    public Transform lider;
 
 	// Use this for initialization
 	void Start ()
