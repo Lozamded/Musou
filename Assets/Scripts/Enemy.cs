@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Enemy : Interactive {
 
-    public override void interact()
+    public override void Interact()
     {
-        base.interact();
+        base.Interact();
         //Atacar
     }
 }

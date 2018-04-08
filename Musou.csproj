@@ -263,6 +263,7 @@
     <Compile Include="Assets\Scripts\Controllers\PlayerMotor.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\enemyGenerator.cs" />
+    <Compile Include="Assets\Scripts\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\Interactive.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
   </ItemGroup>

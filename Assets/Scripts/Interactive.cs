@@ -12,7 +12,7 @@ public class Interactive : MonoBehaviour {
 
     bool hasInteracted = false;
 
-    public virtual void interact()
+    public virtual void Interact()
     {
         //Esto significa que este metodo sera reescrito
         Debug.Log("Interactuar con " + interactionTransform.name);
@@ -25,7 +25,7 @@ public class Interactive : MonoBehaviour {
             float distance = Vector3.Distance(player.position, interactionTransform.position);
             if (distance <= radius)
             {
-                interact();
+                Interact();
                 hasInteracted = true;
             }
         }

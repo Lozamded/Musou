@@ -9,7 +9,7 @@ public class EnemyStats : MonoBehaviour {
     int velocidad = 0;
     int ataque = 0;
 
-    public bool es_lider = false;
+    //public bool es_lider = false;
     public Transform lider;
 
 	// Use this for initialization

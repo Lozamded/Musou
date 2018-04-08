@@ -8,33 +8,46 @@ public class EnemyController : MonoBehaviour {
     public float lookRadius = 10f;
     public float ReclutationRadius = 12f;
     public string estado = "esperando";
+
+    public bool es_lider = false;
+
     Transform target;
+    Transform player;
+    Transform colega_cercano;
     NavMeshAgent agent;
 
 	// Use this for initialization
 	void Start ()
     {
-        target = PlayerManager.instance.player.transform; //Para usar un target generico en personaje
+        player = PlayerManager.instance.player.transform; //Para usar un target generico para le enemigo que es el personaje.
+
+        if (es_lider == false)
+        {
+            target = EnemyManager.instance.enemy.transform; //Para usar un target generico en el enemigo que es que siga al lider.
+        }
+        else {
+
+            target = player; //Para usar un target generico para le enemigo que es el personaje.
+        }
+        
         agent = GetComponent<NavMeshAgent>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
+            float distance = Vector3.Distance(target.position, transform.position);
 
-
-        if(distance <= lookRadius)
-        {
-            agent.SetDestination(target.position);
-
-            if(distance <= agent.stoppingDistance)
+            if (distance <= lookRadius)
             {
-                //Atacar el tarjet
-                FaceTarget();
-            }
-        }
+                agent.SetDestination(target.position);
 
+                if (distance <= agent.stoppingDistance)
+                {
+                    //Atacar el tarjet
+                    FaceTarget();
+                }
+            }
     }
 
     void FaceTarget()
