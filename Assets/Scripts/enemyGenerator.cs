@@ -7,12 +7,12 @@ public class enemyGenerator : MonoBehaviour {
   
     public GameObject enemy;
     float timer = 0;
-    float create_time;
+    public float create_time;
 
     // Use this for initialization
     void Start ()
     {
-        float create_time = Random.Range(5,20);
+        create_time = Random.Range(5,20);
     }
 	
 	// Update is called once per frame
