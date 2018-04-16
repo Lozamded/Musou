@@ -84,14 +84,21 @@ public class EnemyController : EnemyStats {
                     {
                         //Debug.Log("El orden es:");
                         //Debug.Log(item.name);
-                        if(item.gameObject.GetComponent<EnemyController>().es_lider == true)
+                        if (distance_player <= lookRadius)
                         {
-                            //item.gameObject.GetComponent<EnemyController>().soldados += 1;
-                            Debug.Log("Tengo nuevo lider: ");
-                            Debug.Log(item.name);
-                            target = item.gameObject.transform;
-                            target.GetComponent<EnemyController>().soldados += 1;
-                            estado = "perseguir";
+                            agent.SetDestination(player.position);
+                        }
+                        else
+                        { 
+                            if (item.gameObject.GetComponent<EnemyController>().es_lider == true)
+                            {
+                                //item.gameObject.GetComponent<EnemyController>().soldados += 1;
+                                Debug.Log("Tengo nuevo lider: ");
+                                Debug.Log(item.name);
+                                target = item.gameObject.transform;
+                                target.GetComponent<EnemyController>().soldados += 1;
+                                estado = "perseguir";
+                            }
                         }
                     }
 

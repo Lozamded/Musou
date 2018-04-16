@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Escenas/Intro.unity
+- path: Assets/Escenas/Mapa2.unity
   isLoaded: 1
   isActive: 1
