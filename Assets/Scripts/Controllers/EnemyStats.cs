@@ -20,7 +20,7 @@ public class EnemyStats : MonoBehaviour {
     {
 
         vida = Random.Range(10f, 20f);
-        Debug.Log("vida: " + vida);
+        //Debug.Log("vida: " + vida);
         resistencia = Random.Range(10f, 20f);
         velocidad = Random.Range(1f, 6f);
         ataque = Random.Range(10, 60);

@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002328546883400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 292.5702, y: 0, z: 203.8}
+  m_LocalPosition: {x: 311, y: 0, z: 176.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4240112392225878}
@@ -193,6 +193,7 @@ MonoBehaviour:
   ataque: 0
   soldados: 0
   lookRadius: 10
+  bastionRadius: 45
   LayerMask:
     serializedVersion: 2
     m_Bits: 512
@@ -201,6 +202,8 @@ MonoBehaviour:
   new_preTarget: 2
   preTarget: {x: 0, y: 0, z: 0}
   estado: esperando
+  currentPoint: 0
+  path: []
   bastion: {fileID: 0}
 --- !u!114 &114397637382012508
 MonoBehaviour:

@@ -22,7 +22,7 @@ public class enemyGenerator : MonoBehaviour {
         timer += Time.deltaTime;
         if(timer >= create_time)
         {
-            Debug.Log("Generando enemigo... a los " + timer);
+            //Debug.Log("Generando enemigo... a los " + timer);
             timer = 0f;
             create_time = Random.Range(5f, 20f);
 

@@ -348,6 +348,10 @@ Prefab:
       propertyPath: bastion
       value: 
       objectReference: {fileID: 571074350}
+    - target: {fileID: 1886297044213456, guid: dddfc7dd384b11f449294d6307b8880b, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dddfc7dd384b11f449294d6307b8880b, type: 2}
   m_IsPrefabParent: 0
@@ -466,6 +470,10 @@ Prefab:
       propertyPath: bastion
       value: 
       objectReference: {fileID: 571074350}
+    - target: {fileID: 1886297044213456, guid: dddfc7dd384b11f449294d6307b8880b, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dddfc7dd384b11f449294d6307b8880b, type: 2}
   m_IsPrefabParent: 0
@@ -517,6 +525,10 @@ Prefab:
       propertyPath: bastion
       value: 
       objectReference: {fileID: 571074350}
+    - target: {fileID: 1886297044213456, guid: dddfc7dd384b11f449294d6307b8880b, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dddfc7dd384b11f449294d6307b8880b, type: 2}
   m_IsPrefabParent: 0
@@ -1402,7 +1414,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1886297044213456, guid: dddfc7dd384b11f449294d6307b8880b, type: 2}
       propertyPath: m_Layer
-      value: 0
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114829170013506832, guid: dddfc7dd384b11f449294d6307b8880b,
         type: 2}
