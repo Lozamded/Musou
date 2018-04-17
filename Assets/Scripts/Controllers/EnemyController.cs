@@ -20,7 +20,8 @@ public class EnemyController : EnemyStats {
     //Para verificar estados
     public string estado;
 
-    GameObject cercano; //Se asignara aqui el objeto mas cercano
+    GameObject cercano; //Se asignara aqui el objeto mas cercano;
+    public GameObject bastion; //Se asignara el bastion donde fue creado;
     Transform target;
     Transform player;
     NavMeshAgent agent;
@@ -29,16 +30,7 @@ public class EnemyController : EnemyStats {
 	void Start ()
     {
         player = PlayerManager.instance.player.transform; //Para usar un target generico para le enemigo que es el personaje.
-
-        if (es_lider == false)//Si el enemigo es un lider
-        {
-           target = EnemyManager.instance.enemy.transform; //Para usar un target generico en el enemigo que es que siga al lider.
-        }
-        else {
-
-            target = player; //Para usar un target generico para le enemigo que es el personaje.
-            //this.GetComponent<Renderer>().material.color = Color.blue;
-        }
+        target = player; //Para usar un target generico para le enemigo que es el personaje.
         
         agent = GetComponent<NavMeshAgent>();
 	}
@@ -71,8 +63,9 @@ public class EnemyController : EnemyStats {
                     if(timer >= new_preTarget)
                     {
                         newPreTarget();
-                        new_preTarget = UnityEngine.Random.Range(1, 4);
-                       timer = 0;
+                        new_preTarget = UnityEngine.Random.Range(6, 12);
+                        Debug.Log("pre target: " + new_preTarget);
+                        timer = 0;
                     }
 
       
@@ -82,8 +75,8 @@ public class EnemyController : EnemyStats {
 
                     foreach(Collider item in colliders)
                     {
-                        //Debug.Log("El orden es:");
-                        //Debug.Log(item.name);
+                        // Debug.Log("El orden es:");
+                        // Debug.Log(item.name);
                         if (distance_player <= lookRadius)
                         {
                             agent.SetDestination(player.position);
@@ -92,13 +85,14 @@ public class EnemyController : EnemyStats {
                         { 
                             if (item.gameObject.GetComponent<EnemyController>().es_lider == true)
                             {
-                                //item.gameObject.GetComponent<EnemyController>().soldados += 1;
-                                Debug.Log("Tengo nuevo lider: ");
-                                Debug.Log(item.name);
+                                item.gameObject.GetComponent<EnemyController>().soldados += 1;
+                                //Debug.Log("Tengo nuevo lider: ");
+                                //Debug.Log(item.name);
                                 target = item.gameObject.transform;
                                 target.GetComponent<EnemyController>().soldados += 1;
                                 estado = "perseguir";
                             }
+
                         }
                     }
 
@@ -141,10 +135,11 @@ public class EnemyController : EnemyStats {
         float myX = gameObject.transform.position.x;
         float myZ = gameObject.transform.position.z;
 
-        float xPos = myX + UnityEngine.Random.Range(myX - 100, myX + 100);
-        float zPos = myX + UnityEngine.Random.Range(myZ - 100, myZ + 100);
+        float xPos = myX + UnityEngine.Random.Range(myX - 500, myX + 500);
+        float zPos = myX + UnityEngine.Random.Range(myZ - 500, myZ + 500);
 
         preTarget = new Vector3(xPos,gameObject.transform.position.y,zPos);
+        //Debug.Log("Voy al azar hacia " + xPos +","+zPos);
         agent.SetDestination(preTarget);
     } 
 
