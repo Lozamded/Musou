@@ -36,10 +36,15 @@ public class EnemyController : EnemyStats {
     {
         player = PlayerManager.instance.player.transform; //Para usar un target generico para le enemigo que es el personaje.
         target = player; //Para usar un target generico para le enemigo que es el personaje.
+
+        agent = GetComponent<NavMeshAgent>();
+
         if(es_lider == true)
         {
+            GetComponentInChildren<colorChanger>().OrangeColor();
+
             estado = "reclutando";
-            tiempo_reclutamiento = UnityEngine.Random.Range(10f, 25f);
+            tiempo_reclutamiento = UnityEngine.Random.Range(45f, 165f);
 
             //Busqueda de los generadores de enemigos para buscar reclutas.
             Collider[] colliders = Physics.OverlapSphere(transform.position, bastionRadius, LayerMask);
@@ -53,7 +58,12 @@ public class EnemyController : EnemyStats {
                 }
             }
         }
-        agent = GetComponent<NavMeshAgent>();
+        else
+        {
+            estado = "esperando";
+            agent.SetDestination(bastion.transform.position);
+        }
+ 
 	}
 	
 	// Update is called once per frame
@@ -61,6 +71,7 @@ public class EnemyController : EnemyStats {
     {
        float distance = Vector3.Distance(target.position, transform.position);
        float distance_player = Vector3.Distance(player.position, transform.position);
+       //if(bastion != obj)
        float distance_bastion = Vector3.Distance(bastion.transform.position, transform.position);
 
        
@@ -105,7 +116,10 @@ public class EnemyController : EnemyStats {
 
 
                 case "persecucion":
+
                     agent.SetDestination(target.position);
+                    agent.speed = getVelocidad();
+
                     if (distance <= agent.stoppingDistance)
                     {
                         //Atacar el tarjet
@@ -121,24 +135,25 @@ public class EnemyController : EnemyStats {
                 case "esperando":
 
                     //Recorrido random
-                    timer += Time.deltaTime; 
-                    if(timer >= new_preTarget)
+                    if (distance_bastion < bastionRadius)
                     {
-                        if (distance_bastion < bastionRadius)
+                        timer += Time.deltaTime; 
+                        if(timer >= new_preTarget)
                         {
                             newPreTarget();
                             new_preTarget = UnityEngine.Random.Range(6, 12);
+                            //Debug.Log("pre target en : " + new_preTarget + "segundos ");
+                            timer = 0;
                         }
-                        else
-                        {
-                            agent.SetDestination(bastion.transform.position);
-                        }
-                        
-                        //Debug.Log("pre target: " + new_preTarget);
-                        timer = 0;
+                    }
+                    else
+                    {
+                        agent.SetDestination(bastion.transform.position);
+                        Debug.Log("Me pase me devuelvo al bastion");
+                        Debug.Log("voy para: " + bastion.transform.position);
                     }
 
-      
+
                     //Busqueda de un lider
                     Collider[] colliders = Physics.OverlapSphere(transform.position, lookRadius, LayerMask);
                     Array.Sort(colliders, new DistanceComparer(transform));
@@ -154,9 +169,8 @@ public class EnemyController : EnemyStats {
                         else
                         {
                             if (item.gameObject.GetComponent<EnemyController>() == true)
-                               
                             {
-                                Debug.Log("Encontre un simil");
+                                //Debug.Log("Encontre un simil");
                                 if (item.gameObject.GetComponent<EnemyController>().es_lider == true)
                                 {
                                     item.gameObject.GetComponent<EnemyController>().soldados += 1;
@@ -212,11 +226,11 @@ public class EnemyController : EnemyStats {
         float myX = gameObject.transform.position.x;
         float myZ = gameObject.transform.position.z;
 
-        float xPos = myX + UnityEngine.Random.Range(myX - 500, myX + 500);
-        float zPos = myX + UnityEngine.Random.Range(myZ - 500, myZ + 500);
+        float xPos = myX + UnityEngine.Random.Range(myX - 1200, myX + 1200);
+        float zPos = myX + UnityEngine.Random.Range(myZ - 1200, myZ + 1200);
 
         preTarget = new Vector3(xPos,gameObject.transform.position.y,zPos);
-        //Debug.Log("Voy al azar hacia " + xPos +","+zPos);
+        Debug.Log("Voy al azar hacia " + xPos +","+zPos);
         agent.SetDestination(preTarget);
     } 
 

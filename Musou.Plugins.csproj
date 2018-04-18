@@ -239,6 +239,9 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Editor\Data\PlaybackEngines\AppleTVSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
@@ -261,32 +264,43 @@
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\ActivateTrigger.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\AlphaButtonClickMask.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\AutoMobileShaderSwitch.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\AutoMoveAndRotate.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\CameraRefocus.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\CurveControlledBob.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\DragRigidbody.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\DynamicShadowSettings.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\EventSystemChecker.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\FollowTarget.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\ForcedReset.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\FOVKick.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\FPSCounter.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\LerpControlledBob.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\ObjectResetter.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\ParticleSystemDestroyer.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\PlatformSpecificContent.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\SimpleActivatorMenu.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\SimpleMouseRotator.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\SmoothFollow.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\TimedObjectActivator.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\TimedObjectDestructor.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\WaypointCircuit.cs" />
-    <Compile Include="Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\ActivateTrigger.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\AlphaButtonClickMask.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\AutoMobileShaderSwitch.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\AutoMoveAndRotate.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\CameraRefocus.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\CurveControlledBob.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\DragRigidbody.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\DynamicShadowSettings.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\EventSystemChecker.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\FollowTarget.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\ForcedReset.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\FOVKick.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\FPSCounter.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\LerpControlledBob.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\ObjectResetter.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\ParticleSystemDestroyer.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\PlatformSpecificContent.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\SimpleActivatorMenu.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\SimpleMouseRotator.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\SmoothFollow.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\TimedObjectActivator.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\TimedObjectDestructor.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\WaypointCircuit.cs" />
+    <Compile Include="Assets\Standard Assets\Prototyping\Utility\WaypointProgressTracker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh.cginc" />
+    <None Include="Assets\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh.shader" />
+    <None Include="Assets\AstarPathfindingProject\Editor\EditorAssets\Materials\NavmeshOutline.shader" />
+    <None Include="Assets\AstarPathfindingProject\ExampleScenes\Materials\DiffuseAlwaysVisible.shader" />
+    <None Include="Assets\AstarPathfindingProject\ExampleScenes\Materials\Projector Light.shader" />
+    <None Include="Assets\AstarPathfindingProject\ExampleScenes\_Example Scenes.txt" />
+    <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\DotNetZipLicense.txt" />
+    <None Include="Assets\AstarPathfindingProject\Plugins\dependencies.txt" />
+    <None Include="Assets\AstarPathfindingProject\Readme.txt" />
+    <None Include="Assets\AstarPathfindingProject\Readme_upgrading.txt" />
+    <None Include="Assets\AstarPathfindingProject\link.xml" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
   </ItemGroup>

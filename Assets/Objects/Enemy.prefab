@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 4240112392225878}
   - component: {fileID: 33693889505554508}
   - component: {fileID: 23258537086656622}
+  - component: {fileID: 114626735080634102}
   m_Layer: 9
   m_Name: GFX
   m_TagString: Untagged
@@ -70,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002328546883400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 311, y: 0, z: 176.3}
+  m_LocalPosition: {x: 91.1, y: 2.9680076, z: 440.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4240112392225878}
@@ -219,6 +220,21 @@ MonoBehaviour:
   radius: 3
   interactionTransform: {fileID: 4710585431773278, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
     type: 2}
+--- !u!114 &114626735080634102
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1603121915446774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 324a9fa744f903741ad2bd0d861eebe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material:
+  - {fileID: 2100000, guid: fb4a68c4a9324694a9dbf6621568aea7, type: 2}
+  - {fileID: 2100000, guid: f4114fbb80a08b94cb027e0cd265c45d, type: 2}
+  CurrMat: {fileID: 2100000, guid: fb4a68c4a9324694a9dbf6621568aea7, type: 2}
 --- !u!136 &136902542657932974
 CapsuleCollider:
   m_ObjectHideFlags: 1
