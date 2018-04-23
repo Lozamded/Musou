@@ -22,13 +22,13 @@ public class EnemyStats : MonoBehaviour {
         vida = Random.Range(10f, 20f);
         //Debug.Log("vida: " + vida);
         resistencia = Random.Range(10f, 20f);
-        velocidad = Random.Range(1f, 6f);
+        velocidad = Random.Range(1f, 8f);
         ataque = Random.Range(10, 60);
 
         if( vida > 15 && resistencia > 15 && ataque > 30)
         {
             es_lider = true;
-            Debug.Log("Soy un lider");
+           //Debug.Log("Soy un lider");
         }
     }
 

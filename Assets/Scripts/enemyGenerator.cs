@@ -26,9 +26,11 @@ public class enemyGenerator : MonoBehaviour {
             timer = 0f;
             create_time = Random.Range(5f, 20f);
 
-            Instantiate(enemy,transform.position,Quaternion.identity);
             enemy.transform.position = transform.position;
             enemy.gameObject.GetComponent<EnemyController>().bastion = bastion;
+            //Instantiate(enemy,transform.position,Quaternion.identity);
+            Instantiate(enemy);
+
         }
     }
 }

@@ -16,11 +16,12 @@ public class EnemyController : EnemyStats {
 
     //Para caminata inicial por el area
     public float timer; // Para caminata inicial
-    public int new_preTarget = 2; //target de inicio
+    public float new_preTarget; //target de inicio
     public Vector3 preTarget; 
 
     //Para verificar estados
     public string estado;
+    public string estado_previo;
 
     //Variables para eseguimiento
     GameObject cercano; //Se asignara aqui el objeto mas cercano;
@@ -30,6 +31,7 @@ public class EnemyController : EnemyStats {
     Transform target;
     Transform player;
     NavMeshAgent agent;
+    public List<Transform> bastiones = new List<Transform>();
 
 	// Use this for initialization
 	void Start ()
@@ -44,11 +46,13 @@ public class EnemyController : EnemyStats {
             GetComponentInChildren<colorChanger>().OrangeColor();
 
             estado = "reclutando";
-            tiempo_reclutamiento = UnityEngine.Random.Range(45f, 165f);
+            tiempo_reclutamiento = UnityEngine.Random.Range(25f, 165f);
 
             //Busqueda de los generadores de enemigos para buscar reclutas.
             Collider[] colliders = Physics.OverlapSphere(transform.position, bastionRadius, LayerMask);
+            Collider[] colliders_lejanos = Physics.OverlapSphere(transform.position, 9500, LayerMask);
             Array.Sort(colliders, new DistanceComparer(transform));
+            Array.Sort(colliders_lejanos, new DistanceComparer(transform));
             foreach (Collider item in colliders)
             {
                 if (item.gameObject.GetComponent<enemyGenerator>() == true)
@@ -56,11 +60,23 @@ public class EnemyController : EnemyStats {
                     //Debug.Log("Encontre un generador");
                     path.Add(item.gameObject.transform);
                 }
+
+            }
+
+            //Buscar los bastiones
+            foreach (Collider item in colliders_lejanos)
+            {
+
+                if (item.gameObject.GetComponent<BastionController>() == true)
+                {
+                    bastiones.Add(item.gameObject.transform);
+                }
             }
         }
         else
         {
             estado = "esperando";
+            //Debug.Log("Me voy al centro del bastion");
             agent.SetDestination(bastion.transform.position);
         }
  
@@ -78,7 +94,8 @@ public class EnemyController : EnemyStats {
 
         if (es_lider == true) //Si es un lider
         {
-            switch(estado)
+
+            switch (estado)
             {
                 case "reclutando":
 
@@ -87,63 +104,115 @@ public class EnemyController : EnemyStats {
                     timer += Time.deltaTime;
                     if (timer >= tiempo_reclutamiento)
                     {
-                       if(soldados > 5)
+                        if (soldados > 5)
                         {
                             estado = "busqueda";
+                            /*
+                            int random_number= UnityEngine.Random.Range(1,5);
+                            Debug.Log("Me viro dle bastion" + random_number);
+                            currentPoint = random_number; 
+                            */
                         }
                     }
 
                     float distance_generador = Vector3.Distance(path[currentPoint].transform.position, transform.position);
-                    if(distance_generador < 5)
+                    if (distance_generador < 5)
                     {
-     
-                        if(currentPoint >= path.Count-1)
+
+                        if (currentPoint >= path.Count - 1)
                         {
                             currentPoint = 0;
                         }
                         else { currentPoint++; }
 
-                        Debug.Log("Encontre un generador, ahora voy por el " + currentPoint);
+                        //Debug.Log("Encontre un generador, ahora voy por el " + currentPoint);
 
                     }
 
 
-                break;
-          
+                    break;
+
                 case "busqueda":
-                    estado = "persecucion";
+
+                    if (distance_player > lookRadius)
+                    { 
+
+                        agent.SetDestination(bastiones[currentPoint].transform.position);
+
+
+                        float distance_bastiones = Vector3.Distance(bastiones[currentPoint].transform.position, transform.position);
+                        if (distance_bastiones < 10)
+                        {
+
+                            switch(currentPoint)
+                            {
+                                case 1:
+                                    currentPoint = UnityEngine.Random.Range(2,4);
+                                break;
+
+                                case 2:
+                                    currentPoint = UnityEngine.Random.Range(3,5);
+                                break;
+
+                                case 3:
+                                    currentPoint = UnityEngine.Random.Range(2,5);
+                                break;
+
+                                case 4:
+                                    currentPoint = UnityEngine.Random.Range(2,5);
+                                break;
+                            }
+
+                        }
+                    }else
+                    {
+                        estado_previo = estado;
+                        estado = "Persecucion";
+                    }
+
                 break;
 
 
                 case "persecucion":
 
-                    agent.SetDestination(target.position);
-                    agent.speed = getVelocidad();
-
-                    if (distance <= agent.stoppingDistance)
+                    if (distance_player < lookRadius)
                     {
-                        //Atacar el tarjet
-                        FaceTarget();
+                        agent.SetDestination(target.position);
+                        agent.speed = getVelocidad();
+
+                        if (distance <= agent.stoppingDistance)
+                        {
+                            //Atacar el tarjet
+                            FaceTarget();
+                        }
+                    }
+                    else
+                    {
+                        estado = estado_previo;
                     }
                 break;
             }
      
-        }else{ //Si no es un lider
+        }
+        else
+        { //Si no es un lider
+
+            //Debug.Log(agent.destination);
 
             switch(estado)
             {
                 case "esperando":
-
+                    
                     //Recorrido random
                     if (distance_bastion < bastionRadius)
                     {
                         timer += Time.deltaTime; 
                         if(timer >= new_preTarget)
                         {
+                            timer = 0;
                             newPreTarget();
                             new_preTarget = UnityEngine.Random.Range(6, 12);
                             //Debug.Log("pre target en : " + new_preTarget + "segundos ");
-                            timer = 0;
                         }
                     }
                     else
@@ -152,7 +221,7 @@ public class EnemyController : EnemyStats {
                         Debug.Log("Me pase me devuelvo al bastion");
                         Debug.Log("voy para: " + bastion.transform.position);
                     }
-
+                    
 
                     //Busqueda de un lider
                     Collider[] colliders = Physics.OverlapSphere(transform.position, lookRadius, LayerMask);
@@ -174,8 +243,8 @@ public class EnemyController : EnemyStats {
                                 if (item.gameObject.GetComponent<EnemyController>().es_lider == true)
                                 {
                                     item.gameObject.GetComponent<EnemyController>().soldados += 1;
-                                    Debug.Log("Tengo nuevo lider: ");
-                                    Debug.Log(item.name);
+                                    //Debug.Log("Tengo nuevo lider: ");
+                                    //Debug.Log(item.name);
                                     target = item.gameObject.transform;
                                     target.GetComponent<EnemyController>().soldados += 1;
                                     estado = "perseguir";
@@ -230,7 +299,7 @@ public class EnemyController : EnemyStats {
         float zPos = myX + UnityEngine.Random.Range(myZ - 1200, myZ + 1200);
 
         preTarget = new Vector3(xPos,gameObject.transform.position.y,zPos);
-        Debug.Log("Voy al azar hacia " + xPos +","+zPos);
+        //Debug.Log("Voy al azar hacia " + xPos +","+zPos);
         agent.SetDestination(preTarget);
     } 
 
