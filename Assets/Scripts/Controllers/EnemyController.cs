@@ -107,6 +107,7 @@ public class EnemyController : EnemyStats {
                         if (soldados > 5)
                         {
                             estado = "busqueda";
+                            Debug.Log("Me viro dle bastion");
                             /*
                             int random_number= UnityEngine.Random.Range(1,5);
                             Debug.Log("Me viro dle bastion" + random_number);
@@ -146,6 +147,11 @@ public class EnemyController : EnemyStats {
 
                             switch(currentPoint)
                             {
+
+                                case 0:
+                                    currentPoint = UnityEngine.Random.Range(1,4);
+                                break;
+
                                 case 1:
                                     currentPoint = UnityEngine.Random.Range(2,4);
                                 break;
@@ -159,7 +165,7 @@ public class EnemyController : EnemyStats {
                                 break;
 
                                 case 4:
-                                    currentPoint = UnityEngine.Random.Range(2,5);
+                                    currentPoint = UnityEngine.Random.Range(3,5);
                                 break;
                             }
 
