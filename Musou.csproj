@@ -374,6 +374,7 @@
     <Compile Include="Assets\Scripts\Controllers\EnemyStats.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerMotor.cs" />
+    <Compile Include="Assets\Scripts\Controllers\ReturnPosition.cs" />
     <Compile Include="Assets\Scripts\DistanceComparer.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\enemyGenerator.cs" />

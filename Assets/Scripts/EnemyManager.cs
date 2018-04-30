@@ -7,6 +7,7 @@ public class EnemyManager : MonoBehaviour {
     #region Singleton
 
     public static EnemyManager instance;
+    public List<Transform> hormigas = new List<Transform>();
 
     void Awake()
     {

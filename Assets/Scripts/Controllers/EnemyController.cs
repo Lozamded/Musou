@@ -25,7 +25,9 @@ public class EnemyController : EnemyStats {
 
     //Variables para eseguimiento
     GameObject cercano; //Se asignara aqui el objeto mas cercano;
-    public int currentPoint = 0; //Generador actual
+    public int generadorPoint = 0; //Generador actual
+    public int bastionPoint = 0;
+
     public List<Transform> path = new List<Transform>();
     public GameObject bastion; //Se asignara el bastion donde fue creado;
     Transform target;
@@ -33,59 +35,33 @@ public class EnemyController : EnemyStats {
     NavMeshAgent agent;
     public List<Transform> bastiones = new List<Transform>();
 
+    Transform bottom;
+    GameObject bottomObject;
+
 	// Use this for initialization
 	void Start ()
     {
         player = PlayerManager.instance.player.transform; //Para usar un target generico para le enemigo que es el personaje.
         target = player; //Para usar un target generico para le enemigo que es el personaje.
 
+        bottom = this.gameObject.transform.GetChild(1);
+        bottomObject = this.gameObject.transform.GetChild(1).gameObject;
+
         agent = GetComponent<NavMeshAgent>();
 
-        if(es_lider == true)
-        {
-            GetComponentInChildren<colorChanger>().OrangeColor();
-
-            estado = "reclutando";
-            tiempo_reclutamiento = UnityEngine.Random.Range(25f, 165f);
-
-            //Busqueda de los generadores de enemigos para buscar reclutas.
-            Collider[] colliders = Physics.OverlapSphere(transform.position, bastionRadius, LayerMask);
-            Collider[] colliders_lejanos = Physics.OverlapSphere(transform.position, 9500, LayerMask);
-            Array.Sort(colliders, new DistanceComparer(transform));
-            Array.Sort(colliders_lejanos, new DistanceComparer(transform));
-            foreach (Collider item in colliders)
-            {
-                if (item.gameObject.GetComponent<enemyGenerator>() == true)
-                {
-                    //Debug.Log("Encontre un generador");
-                    path.Add(item.gameObject.transform);
-                }
-
-            }
-
-            //Buscar los bastiones
-            foreach (Collider item in colliders_lejanos)
-            {
-
-                if (item.gameObject.GetComponent<BastionController>() == true)
-                {
-                    bastiones.Add(item.gameObject.transform);
-                }
-            }
-        }
-        else
+        if(es_lider == false)
         {
             estado = "esperando";
             //Debug.Log("Me voy al centro del bastion");
             agent.SetDestination(bastion.transform.position);
         }
- 
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-       float distance = Vector3.Distance(target.position, transform.position);
+      
+       float distance = Vector3.Distance(target.gameObject.transform.position, transform.position);
        float distance_player = Vector3.Distance(player.position, transform.position);
        //if(bastion != obj)
        float distance_bastion = Vector3.Distance(bastion.transform.position, transform.position);
@@ -93,13 +69,13 @@ public class EnemyController : EnemyStats {
        
 
         if (es_lider == true) //Si es un lider
-        {
+        {   
 
             switch (estado)
             {
                 case "reclutando":
 
-                    agent.SetDestination(path[currentPoint].transform.position);
+                    agent.SetDestination(path[generadorPoint].transform.position);
 
                     timer += Time.deltaTime;
                     if (timer >= tiempo_reclutamiento)
@@ -107,24 +83,20 @@ public class EnemyController : EnemyStats {
                         if (soldados > 5)
                         {
                             estado = "busqueda";
-                            Debug.Log("Me viro del bastion " + "al " + currentPoint);
-                            /*
-                            int random_number= UnityEngine.Random.Range(1,5);
-                            Debug.Log("Me viro dle bastion" + random_number);
-                            currentPoint = random_number; 
-                            */
+                            Debug.Log("Me viro del bastion " + "al " + bastionPoint);
+                            bastionPoint = UnityEngine.Random.Range(1,4); 
                         }
                     }
 
-                    float distance_generador = Vector3.Distance(path[currentPoint].transform.position, transform.position);
+                    float distance_generador = Vector3.Distance(path[generadorPoint].transform.position, transform.position);
                     if (distance_generador < 5)
                     {
 
-                        if (currentPoint >= path.Count - 1)
+                        if (generadorPoint >= path.Count - 1)
                         {
-                            currentPoint = 0;
+                            generadorPoint = 0;
                         }
-                        else { currentPoint++; }
+                        else { generadorPoint++; }
 
                         //Debug.Log("Encontre un generador, ahora voy por el " + currentPoint);
 
@@ -138,38 +110,38 @@ public class EnemyController : EnemyStats {
                     if (distance_player > lookRadius)
                     { 
 
-                        agent.SetDestination(bastiones[currentPoint].transform.position);
+                        agent.SetDestination(bastiones[bastionPoint].transform.position);
 
 
-                        float distance_bastiones = Vector3.Distance(bastiones[currentPoint].transform.position, transform.position);
+                        float distance_bastiones = Vector3.Distance(bastiones[bastionPoint].transform.position, transform.position);
                         if (distance_bastiones < 10)
                         {
 
-                            switch(currentPoint)
+                            switch(bastionPoint)
                             {
 
                                 case 0:
-                                    currentPoint = UnityEngine.Random.Range(1,4);  
+                                    bastionPoint = UnityEngine.Random.Range(1,5);  
                                 break;
 
                                 case 1:
-                                    currentPoint = UnityEngine.Random.Range(2,4);
+                                    bastionPoint = UnityEngine.Random.Range(2,5);
                                 break;
 
                                 case 2:
-                                    currentPoint = UnityEngine.Random.Range(3,5);
+                                    bastionPoint = UnityEngine.Random.Range(3,6);
                                 break;
 
                                 case 3:
-                                    currentPoint = UnityEngine.Random.Range(2,5);
+                                    bastionPoint = UnityEngine.Random.Range(2,6);
                                 break;
 
                                 case 4:
-                                    currentPoint = UnityEngine.Random.Range(3,5);
+                                    bastionPoint = UnityEngine.Random.Range(3,6);
                                 break;
                             }
 
-                            Debug.Log("Me viro " + "al " + currentPoint);
+                            Debug.Log("Me viro " + "al " + bastionPoint);
                         }
                     }else
                     {
@@ -225,8 +197,8 @@ public class EnemyController : EnemyStats {
                     else
                     {
                         agent.SetDestination(bastion.transform.position);
-                        Debug.Log("Me pase me devuelvo al bastion");
-                        Debug.Log("voy para: " + bastion.transform.position);
+                        //Debug.Log("Me pase me devuelvo al bastion");
+                        //Debug.Log("voy para: " + bastion.transform.position);
                     }
                     
 
@@ -252,8 +224,11 @@ public class EnemyController : EnemyStats {
                                     item.gameObject.GetComponent<EnemyController>().soldados += 1;
                                     //Debug.Log("Tengo nuevo lider: ");
                                     //Debug.Log(item.name);
-                                    target = item.gameObject.transform;
-                                    target.GetComponent<EnemyController>().soldados += 1;
+                                    //target = item.gameObject.transform;
+                                    target = item.gameObject.GetComponent<EnemyController>().bottomObject.transform;
+                                    lider = item.gameObject;
+                                    GetComponent<EnemyStats>().velocidad = lider.gameObject.GetComponent<EnemyStats>().velocidad - 1;
+                                    lider.gameObject.GetComponent<EnemyController>().soldados += 1;
                                     estado = "perseguir";
                                     
                                
@@ -284,10 +259,9 @@ public class EnemyController : EnemyStats {
                     {
                         agent.SetDestination(target.position);
 
-                        if (distance <= agent.stoppingDistance)
+                        if (distance > 25)
                         {
-                            //Atacar el tarjet
-                            FaceTarget();
+                            velocidad = lider.gameObject.GetComponent<EnemyStats>().velocidad + 3;
                         }
                     }
 
@@ -315,6 +289,50 @@ public class EnemyController : EnemyStats {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x,0,direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    public void inicializarLider()//Valores iniciales del lider
+    {
+        GetComponentInChildren<colorChanger>().BlackColor();//Pintar color negro
+
+        GetComponent<NavMeshAgent>().radius = 1;
+        GetComponent<NavMeshAgent>().acceleration = 25;
+        GetComponent<NavMeshAgent>().stoppingDistance = 0;
+
+
+        GetComponent<Rigidbody>().mass = 3;
+        GetComponent<Rigidbody>().drag = 3;
+
+
+        estado = "reclutando";
+        tiempo_reclutamiento = UnityEngine.Random.Range(25f, 165f);//Tiempo que el lider reclutara soldados.
+
+        //Busqueda de los generadores de enemigos para buscar reclutas.
+        Collider[] colliders = Physics.OverlapSphere(transform.position, bastionRadius, LayerMask);
+        Collider[] colliders_lejanos = Physics.OverlapSphere(transform.position, 9500, LayerMask);
+        //Ordenar los arreglos.
+        Array.Sort(colliders, new DistanceComparer(transform));
+        Array.Sort(colliders_lejanos, new DistanceComparer(transform));
+
+        foreach (Collider item in colliders)
+        {
+            if (item.gameObject.GetComponent<enemyGenerator>() == true)
+            {
+                //Debug.Log("Encontre un generador");
+                path.Add(item.gameObject.transform);
+            }
+
+        }
+
+        //Buscar los bastiones
+        foreach (Collider item in colliders_lejanos)
+        {
+
+            if (item.gameObject.GetComponent<BastionController>() == true)
+            {
+                bastiones.Add(item.gameObject.transform);
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()//Para dibujar el lookRadius

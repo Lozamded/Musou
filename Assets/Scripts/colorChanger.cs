@@ -28,11 +28,12 @@ public class colorChanger : MonoBehaviour
     }
 
     //render blue orange Color
-    public void OrangeColor()
+    public void BlackColor()
     {
         //Debug.Log("Hola, cambiar a azul a GFX");
         //Debug.Log("soy el objeto: " + this.name);
         CurrMat = material[1];
+        renderer.sharedMaterial = CurrMat;
     }
 
     //render red color

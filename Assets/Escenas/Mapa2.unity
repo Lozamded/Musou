@@ -1192,6 +1192,21 @@ Prefab:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114146540539432546, guid: 4ea181483011aca44b97a5d786cbce80,
+        type: 2}
+      propertyPath: Layer.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 23245284449698948, guid: 4ea181483011aca44b97a5d786cbce80,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114146540539432546, guid: 4ea181483011aca44b97a5d786cbce80,
+        type: 2}
+      propertyPath: centerRadius
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ea181483011aca44b97a5d786cbce80, type: 2}
   m_IsPrefabParent: 0
@@ -1501,6 +1516,31 @@ Prefab:
     - target: {fileID: 4710585431773278, guid: 4dc22197c94f90f4dbe9c26f0871c0e5, type: 2}
       propertyPath: m_RootOrder
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 195064769891259920, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
+        type: 2}
+      propertyPath: m_AutoRepath
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195064769891259920, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
+        type: 2}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195064769891259920, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
+        type: 2}
+      propertyPath: m_StoppingDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 195064769891259920, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
+        type: 2}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195064769891259920, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
+        type: 2}
+      propertyPath: m_AngularSpeed
+      value: 1200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4dc22197c94f90f4dbe9c26f0871c0e5, type: 2}
