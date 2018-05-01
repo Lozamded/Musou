@@ -36,6 +36,7 @@ public class EnemyController : EnemyStats {
     public List<Transform> bastiones = new List<Transform>();
 
     Transform bottom;
+    Transform front; 
     GameObject bottomObject;
 
 	// Use this for initialization
@@ -45,6 +46,7 @@ public class EnemyController : EnemyStats {
         target = player; //Para usar un target generico para le enemigo que es el personaje.
 
         bottom = this.gameObject.transform.GetChild(1);
+        front = this.gameObject.transform.GetChild(2);
         bottomObject = this.gameObject.transform.GetChild(1).gameObject;
 
         agent = GetComponent<NavMeshAgent>();
@@ -83,7 +85,7 @@ public class EnemyController : EnemyStats {
                         if (soldados > 5)
                         {
                             estado = "busqueda";
-                            Debug.Log("Me viro del bastion " + "al " + bastionPoint);
+                            //Debug.Log("Me viro del bastion " + "al " + bastionPoint);
                             bastionPoint = UnityEngine.Random.Range(1,4); 
                         }
                     }
@@ -141,7 +143,7 @@ public class EnemyController : EnemyStats {
                                 break;
                             }
 
-                            Debug.Log("Me viro " + "al " + bastionPoint);
+                            //Debug.Log("Me viro " + "al " + bastionPoint);
                         }
                     }else
                     {
@@ -266,7 +268,43 @@ public class EnemyController : EnemyStats {
                     }
 
                 break;
+
+                case "delante":
+
+                    agent.speed = getVelocidad() + 5;
+
+                    timer += Time.deltaTime;
+                    if (timer >= 35)
+                    {
+                        timer = 0;
+                        if (lider != null)
+                        {
+                            target = lider.gameObject.GetComponent<EnemyController>().bottomObject.transform;
+                            velocidad = lider.gameObject.GetComponent<EnemyStats>().velocidad - 2;
+                        }
+                        else {
+                            estado = "esperando";
+                        }
+                        
+                        //Debug.Log("pre target en : " + new_preTarget + "segundos ");
+                    }
+
+                    break;
             }
+
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (es_lider == true && col.gameObject.name == "Enemy" && col.gameObject.GetComponent<EnemyController>().es_lider == false )
+        {
+            Debug.Log("toque otra hormiga");
+            col.gameObject.GetComponent<EnemyController>().target = front;
+            col.gameObject.GetComponent<EnemyController>().estado = "delante";
+            col.gameObject.GetComponent<EnemyController>().timer = 0;
+            col.gameObject.GetComponent<EnemyStats>().velocidad += 5;
+
 
         }
     }
