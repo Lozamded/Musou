@@ -143,7 +143,7 @@ public class EnemyController : EnemyStats {
                                 break;
                             }
 
-                            //Debug.Log("Me viro " + "al " + bastionPoint);
+                            Debug.Log("Me viro " + "al " + bastionPoint);
                         }
                     }else
                     {
@@ -336,6 +336,7 @@ public class EnemyController : EnemyStats {
         GetComponent<NavMeshAgent>().radius = 1;
         GetComponent<NavMeshAgent>().acceleration = 25;
         GetComponent<NavMeshAgent>().stoppingDistance = 0;
+        GetComponent<NavMeshAgent>().avoidancePriority = 3;
 
 
         GetComponent<Rigidbody>().mass = 3;
