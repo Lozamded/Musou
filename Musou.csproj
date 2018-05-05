@@ -381,6 +381,7 @@
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\Interactive.cs" />
     <Compile Include="Assets\Scripts\MovingBlock.cs" />
+    <Compile Include="Assets\Scripts\openBlock.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
   </ItemGroup>
   <ItemGroup>
