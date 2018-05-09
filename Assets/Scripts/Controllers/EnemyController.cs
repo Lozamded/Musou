@@ -10,6 +10,7 @@ public class EnemyController : EnemyStats {
     //Variables
     public float lookRadius = 10f;
     public float bastionRadius = 40f;
+    public float circleRadius = 5f;
     public LayerMask LayerMask;
     public float ReclutationRadius = 12f;
     float tiempo_reclutamiento;
@@ -26,6 +27,7 @@ public class EnemyController : EnemyStats {
     //Variables para eseguimiento
     GameObject cercano; //Se asignara aqui el objeto mas cercano;
     public int generadorPoint = 0; //Generador actual
+    int shearchPoint = 0;
     public int bastionPoint = 0;
 
     public List<Transform> path = new List<Transform>();
@@ -65,7 +67,6 @@ public class EnemyController : EnemyStats {
       
        float distance = Vector3.Distance(target.gameObject.transform.position, transform.position);
        float distance_player = Vector3.Distance(player.position, transform.position);
-       //if(bastion != obj)
        float distance_bastion = Vector3.Distance(bastion.transform.position, transform.position);
 
        
@@ -85,8 +86,9 @@ public class EnemyController : EnemyStats {
                         if (soldados > 5)
                         {
                             estado = "busqueda";
-                            //Debug.Log("Me viro del bastion " + "al " + bastionPoint);
-                            bastionPoint = UnityEngine.Random.Range(1,4); 
+
+                            bastionPoint = UnityEngine.Random.Range(1,5);
+                            Debug.Log("Parti mi busquea, voy a el  " + bastionPoint);
                         }
                     }
 
@@ -248,14 +250,21 @@ public class EnemyController : EnemyStats {
 
                     if (distance_player <= lookRadius)
                     {
-                        agent.SetDestination(player.position);
-
+                        if(distance_player <= circleRadius)
+                        {
+                            Debug.Log("Me acerco al circurlo");
+                            estado = "Esperando circulo";
+                            ValidarCirculo();
+                        }
+                        else { agent.SetDestination(player.position);}
 
                         if (distance <= agent.stoppingDistance)
                         {
+
                             //Atacar el tarjet
                             FaceTarget();
                         }
+                        
                     }
                     else
                     {
@@ -295,7 +304,7 @@ public class EnemyController : EnemyStats {
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter(Collision col)//Chequear si ha colisionado concon otra hormiga
     {
         if (es_lider == true && col.gameObject.name == "Enemy" && col.gameObject.GetComponent<EnemyController>().es_lider == false )
         {
@@ -309,7 +318,9 @@ public class EnemyController : EnemyStats {
         }
     }
 
-    void newPreTarget()
+    ///Funciones
+
+    void newPreTarget() //Para buscar un lugar al azar en el mapa
     {
         float myX = gameObject.transform.position.x;
         float myZ = gameObject.transform.position.z;
@@ -322,7 +333,7 @@ public class EnemyController : EnemyStats {
         agent.SetDestination(preTarget);
     } 
 
-    void FaceTarget()
+    void FaceTarget() //Mirar al target
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x,0,direction.z));
@@ -374,9 +385,18 @@ public class EnemyController : EnemyStats {
         }
     }
 
+    public void ValidarCirculo()
+    {
+            
+    }
+
+
     private void OnDrawGizmosSelected()//Para dibujar el lookRadius
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, circleRadius);
     }
 }

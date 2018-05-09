@@ -35,7 +35,7 @@ public class openBlock : MonoBehaviour
                 currentPoint = 0;
             }
             else { currentPoint++; }
-            Debug.Log("Cambio");
+            //Debug.Log("Cambio");
             agent.SetDestination(movePoints[currentPoint].transform.position);
         }
     }
