@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Interactive focus;
     public LayerMask movementMask;
     public List<Transform> KungFuPoints = new List<Transform>(5); //Siempre necesito 5 puntos
+    public List<bool> KungFuPointsChecker = new List<bool>(5); //Siempre necesito 5 puntos
     public float kungFuRadio = 4;
 
     Camera cam;
@@ -20,12 +21,18 @@ public class PlayerController : MonoBehaviour
     {
         cam = Camera.main;
         motor = GetComponent<PlayerMotor>();
-	}
+
+        KungFuPointsChecker[0] = false;
+        KungFuPointsChecker[1] = false;
+        KungFuPointsChecker[2] = false;
+        KungFuPointsChecker[3] = false;
+        KungFuPointsChecker[4] = false;
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-
         //Posicion de los puntos para el circulo de kung fu
         KungFuPoints[0].transform.position = new Vector3(this.transform.position.x - (kungFuRadio/2), this.transform.position.y, this.transform.position.z + kungFuRadio);
         KungFuPoints[1].transform.position = new Vector3(this.transform.position.x - kungFuRadio, this.transform.position.y, this.transform.position.z);

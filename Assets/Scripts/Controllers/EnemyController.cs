@@ -30,16 +30,21 @@ public class EnemyController : EnemyStats {
     int shearchPoint = 0;
     public int bastionPoint = 0;
 
+    //Variables de ruta y bastiones
     public List<Transform> path = new List<Transform>();
     public GameObject bastion; //Se asignara el bastion donde fue creado;
     Transform target;
     Transform player;
     NavMeshAgent agent;
     public List<Transform> bastiones = new List<Transform>();
-
+    
+    //Variables para colision
     Transform bottom;
     Transform front; 
     GameObject bottomObject;
+
+    //Variables de circulo de Kung-Fu
+    public Transform KungfuPoint;
 
 	// Use this for initialization
 	void Start ()
@@ -247,16 +252,23 @@ public class EnemyController : EnemyStats {
                 case "perseguir":
 
                     agent.speed = getVelocidad();
+                    agent.stoppingDistance = 1;
 
                     if (distance_player <= lookRadius)
                     {
                         if(distance_player <= circleRadius)
                         {
                             Debug.Log("Me acerco al circurlo");
+                            agent.stoppingDistance = 6;
                             estado = "Esperando circulo";
                             ValidarCirculo();
                         }
-                        else { agent.SetDestination(player.position);}
+                        else {
+
+                            estado = "perseguir";
+                            agent.SetDestination(player.position);
+
+                        }
 
                         if (distance <= agent.stoppingDistance)
                         {
@@ -387,7 +399,26 @@ public class EnemyController : EnemyStats {
 
     public void ValidarCirculo()
     {
-            
+        Debug.Log("revisar arreglo de kung fu");
+        int i = 0;
+        foreach (bool Point in lider.GetComponent<PlayerController>().KungFuPointsChecker)
+        {
+            Debug.Log("Point "+ i + " : " + Point);
+            if (Point == false)
+            {
+                KungfuPoint = lider.GetComponent<PlayerController>().KungFuPoints[i].transform;
+                break;
+            }
+            i++;
+        }
+
+        if (KungfuPoint != null)
+        {
+            Debug.Log("Asignado Punto: " + i);
+            target = KungfuPoint;
+        }
+        else { Debug.Log("Estan todos ocupados "); }
+        
     }
 
 
