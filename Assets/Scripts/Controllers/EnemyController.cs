@@ -400,13 +400,15 @@ public class EnemyController : EnemyStats {
     public void ValidarCirculo()
     {
         Debug.Log("revisar arreglo de kung fu");
+        //bool[] Points = player.gameObject.GetComponents<PlayerController>().GETKungFuPointsChecker;
         int i = 0;
-        foreach (bool Point in lider.GetComponent<PlayerController>().KungFuPointsChecker)
+
+        foreach (bool Point in player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker)
         {
-            Debug.Log("Point "+ i + " : " + Point);
+            //Debug.Log("Point "+ i + " : " + Point);
             if (Point == false)
             {
-                KungfuPoint = lider.GetComponent<PlayerController>().KungFuPoints[i].transform;
+                KungfuPoint = player.gameObject.GetComponent<PlayerController>().KungFuPoints[i].transform;
                 break;
             }
             i++;

@@ -10,14 +10,15 @@ public class PlayerController : MonoBehaviour
     public Interactive focus;
     public LayerMask movementMask;
     public List<Transform> KungFuPoints = new List<Transform>(5); //Siempre necesito 5 puntos
-    public List<bool> KungFuPointsChecker = new List<bool>(5); //Siempre necesito 5 puntos
     public float kungFuRadio = 4;
 
     Camera cam;
     PlayerMotor motor;
 
-	// Use this for initialization
-	void Start ()
+    public bool[] KungFuPointsChecker = new bool[5];
+
+    // Use this for initialization
+    void Awake ()
     {
         cam = Camera.main;
         motor = GetComponent<PlayerMotor>();
@@ -98,5 +99,10 @@ public class PlayerController : MonoBehaviour
         }
         focus = null;
         motor.StopFollowingTarget();
+    }
+
+    public bool[] GetKungFuPoints()
+    {
+        return  KungFuPointsChecker;
     }
 }

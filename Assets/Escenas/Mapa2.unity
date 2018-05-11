@@ -2791,6 +2791,26 @@ Prefab:
       propertyPath: KungFuPointsChecker.Array.data[2]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114116598257481004, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
+        type: 2}
+      propertyPath: KungFuPointsChecker.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114116598257481004, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
+        type: 2}
+      propertyPath: KungFuPointsChecker.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114116598257481004, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
+        type: 2}
+      propertyPath: KungFuPointsChecker.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114116598257481004, guid: 4dc22197c94f90f4dbe9c26f0871c0e5,
+        type: 2}
+      propertyPath: KungFuPointsChecker.Array.data[4]
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4dc22197c94f90f4dbe9c26f0871c0e5, type: 2}
   m_IsPrefabParent: 0
