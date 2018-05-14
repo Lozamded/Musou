@@ -1,6 +1,9 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerMotor))]
 
@@ -10,7 +13,11 @@ public class PlayerController : MonoBehaviour
     public Interactive focus;
     public LayerMask movementMask;
     public List<Transform> KungFuPoints = new List<Transform>(5); //Siempre necesito 5 puntos
+    public List<Transform> KungFuEnemys = new List<Transform>(5); //Siempre necesito 5 enemigos
     public float kungFuRadio = 4;
+    float timer = 0; // para rotar en el circulo de KungFu
+    float rotarPuntos;
+    public bool Rotando = false;
 
     Camera cam;
     PlayerMotor motor;
@@ -29,6 +36,7 @@ public class PlayerController : MonoBehaviour
         KungFuPointsChecker[3] = false;
         KungFuPointsChecker[4] = false;
 
+        rotarPuntos = UnityEngine.Random.Range(5,20);
     }
 	
 	// Update is called once per frame
@@ -73,6 +81,19 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        //Circulo de KungFu
+        /*
+        timer += Time.deltaTime;
+        if(timer > rotarPuntos)
+        {
+            timer = 0;
+            rotarPuntos = UnityEngine.Random.Range(5,20);
+            Debug.Log("Rotar circulo de KungFU");
+            Rotando = true;
+        }
+        */
+
     }
 
     void SetFocus (Interactive newFocus)
@@ -101,8 +122,11 @@ public class PlayerController : MonoBehaviour
         motor.StopFollowingTarget();
     }
 
-    public bool[] GetKungFuPoints()
+
+    public bool[] GetKungFuPoints()//Obtener el arreglo con los indices de los puntos
     {
         return  KungFuPointsChecker;
     }
+
+
 }

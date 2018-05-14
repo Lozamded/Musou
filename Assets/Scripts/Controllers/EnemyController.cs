@@ -259,14 +259,14 @@ public class EnemyController : EnemyStats {
                     {
                         if(distance_player <= circleRadius)
                         {
-                            Debug.Log("Me acerco al circurlo");
+                            //Debug.Log("Me acerco al circurlo");
                             //estado = "Esperando circulo";
                             ValidarCirculo();
                         }
                         else {
                             if (KungfuPoint != null)
                             {
-                                Debug.Log("Perdi mi target");
+                                //Debug.Log("Perdi mi target");
                                 player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
                                 GetComponentInChildren<colorChanger>().GrayColor();//Pintar color plateado
                             }
@@ -293,11 +293,12 @@ public class EnemyController : EnemyStats {
                     //Atacar el tarjet
                     FaceTarget(player);
                     agent.SetDestination(target.position);
+
                     if (distance_player > lookRadius)
                     {
                         if (KungfuPoint != null)
                         {
-                            Debug.Log("Perdi mi target");
+                            //Debug.Log("Perdi mi target");
                             player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
                             GetComponentInChildren<colorChanger>().GrayColor();//Pintar color plateado
                             target = player;
@@ -306,8 +307,19 @@ public class EnemyController : EnemyStats {
                             GetComponent<NavMeshAgent>().avoidancePriority = 20;
                         }
                     }
-                
-                break;
+
+                    /*
+                    if (KungfuPoint != null)
+                    {
+                        if (player.gameObject.GetComponent<PlayerController>().Rotando == true)
+                        {
+                            Debug.Log("Vuelta...");
+                            rotarCirculo();
+                        }
+                    }*/
+                   
+
+                    break;
 
                 case "delante":
 
@@ -418,7 +430,7 @@ public class EnemyController : EnemyStats {
 
     public void ValidarCirculo()
     {
-        Debug.Log("revisar arreglo de kung fu");
+        //Debug.Log("revisar arreglo de kung fu");
         indiceKungfuPoint = 0;
 
         foreach (bool Point in player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker)
@@ -434,7 +446,7 @@ public class EnemyController : EnemyStats {
 
         if (KungfuPoint != null)
         {
-            Debug.Log("Asignado Punto: " + indiceKungfuPoint);
+            //Debug.Log("Asignado Punto: " + indiceKungfuPoint);
             GetComponentInChildren<colorChanger>().RedColor();//Pintar color rojo
             target = KungfuPoint;
             agent.stoppingDistance = 1;
@@ -442,12 +454,27 @@ public class EnemyController : EnemyStats {
             GetComponent<NavMeshAgent>().avoidancePriority = 4;
         }
         else {
-            Debug.Log("Estan todos ocupados ");
+            //Debug.Log("Estan todos ocupados ");
             target = player;
             agent.stoppingDistance = 6;
             estado = "perseguir";
         }
         
+    }
+
+    public void rotarCirculo()
+    {
+        if (indiceKungfuPoint < 4)
+        {
+            indiceKungfuPoint += 1;
+        }
+        else {
+            Debug.Log("Vuelvo a 0");
+            indiceKungfuPoint = 0;
+        }
+        KungfuPoint = player.gameObject.GetComponent<PlayerController>().KungFuPoints[indiceKungfuPoint].transform;
+        player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = true;
+        player.gameObject.GetComponent<PlayerController>().Rotando = false;
     }
 
 
