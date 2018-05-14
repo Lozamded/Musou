@@ -40,18 +40,28 @@ public class colorChanger : MonoBehaviour
     public void RedColor()
     {
         CurrMat = material[2];
+        renderer.sharedMaterial = CurrMat;
+    }
+
+    //render greencolor
+    public void GrayColor()
+    {
+        CurrMat = material[3];
+        renderer.sharedMaterial = CurrMat;
     }
 
     //render greencolor
     public void GreenColor()
     {
-        CurrMat = material[3];
+        CurrMat = material[4];
+        renderer.sharedMaterial = CurrMat;
     }
 
 
     //render yellow color
     public void YellowColor()
     {
-        CurrMat = material[4];
+        CurrMat = material[5];
+        renderer.sharedMaterial = CurrMat;
     }
 }

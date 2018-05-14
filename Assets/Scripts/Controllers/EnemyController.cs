@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class EnemyController : EnemyStats {
 
     //Variables
-    public float lookRadius = 10f;
+    public float lookRadius = 15f;
     public float bastionRadius = 40f;
-    public float circleRadius = 5f;
+    public float circleRadius = 6.5f;
     public LayerMask LayerMask;
     public float ReclutationRadius = 12f;
     float tiempo_reclutamiento;
@@ -45,6 +45,7 @@ public class EnemyController : EnemyStats {
 
     //Variables de circulo de Kung-Fu
     public Transform KungfuPoint;
+    public int indiceKungfuPoint;
 
 	// Use this for initialization
 	void Start ()
@@ -171,7 +172,7 @@ public class EnemyController : EnemyStats {
                         if (distance <= agent.stoppingDistance)
                         {
                             //Atacar el tarjet
-                            FaceTarget();
+                            FaceTarget(target);
                         }
                     }
                     else
@@ -252,35 +253,33 @@ public class EnemyController : EnemyStats {
                 case "perseguir":
 
                     agent.speed = getVelocidad();
-                    agent.stoppingDistance = 1;
+
 
                     if (distance_player <= lookRadius)
                     {
                         if(distance_player <= circleRadius)
                         {
                             Debug.Log("Me acerco al circurlo");
-                            agent.stoppingDistance = 6;
-                            estado = "Esperando circulo";
+                            //estado = "Esperando circulo";
                             ValidarCirculo();
                         }
                         else {
-
+                            if (KungfuPoint != null)
+                            {
+                                Debug.Log("Perdi mi target");
+                                player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
+                                GetComponentInChildren<colorChanger>().GrayColor();//Pintar color plateado
+                            }
                             estado = "perseguir";
-                            agent.SetDestination(player.position);
-
                         }
 
-                        if (distance <= agent.stoppingDistance)
-                        {
 
-                            //Atacar el tarjet
-                            FaceTarget();
-                        }
                         
                     }
                     else
                     {
                         agent.SetDestination(target.position);
+                        agent.stoppingDistance = 1;
 
                         if (distance > 25)
                         {
@@ -288,6 +287,26 @@ public class EnemyController : EnemyStats {
                         }
                     }
 
+                break;
+
+                case "combate":
+                    //Atacar el tarjet
+                    FaceTarget(player);
+                    agent.SetDestination(target.position);
+                    if (distance_player > lookRadius)
+                    {
+                        if (KungfuPoint != null)
+                        {
+                            Debug.Log("Perdi mi target");
+                            player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
+                            GetComponentInChildren<colorChanger>().GrayColor();//Pintar color plateado
+                            target = player;
+                            KungfuPoint = null;
+                            estado = "perseguir";
+                            GetComponent<NavMeshAgent>().avoidancePriority = 20;
+                        }
+                    }
+                
                 break;
 
                 case "delante":
@@ -345,9 +364,9 @@ public class EnemyController : EnemyStats {
         agent.SetDestination(preTarget);
     } 
 
-    void FaceTarget() //Mirar al target
+    void FaceTarget(Transform target_to_look) //Mirar al target
     {
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (target_to_look.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x,0,direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
@@ -400,26 +419,34 @@ public class EnemyController : EnemyStats {
     public void ValidarCirculo()
     {
         Debug.Log("revisar arreglo de kung fu");
-        //bool[] Points = player.gameObject.GetComponents<PlayerController>().GETKungFuPointsChecker;
-        int i = 0;
+        indiceKungfuPoint = 0;
 
         foreach (bool Point in player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker)
         {
-            //Debug.Log("Point "+ i + " : " + Point);
             if (Point == false)
             {
-                KungfuPoint = player.gameObject.GetComponent<PlayerController>().KungFuPoints[i].transform;
+                KungfuPoint = player.gameObject.GetComponent<PlayerController>().KungFuPoints[indiceKungfuPoint].transform;
+                player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = true;
                 break;
             }
-            i++;
+            indiceKungfuPoint++;
         }
 
         if (KungfuPoint != null)
         {
-            Debug.Log("Asignado Punto: " + i);
+            Debug.Log("Asignado Punto: " + indiceKungfuPoint);
+            GetComponentInChildren<colorChanger>().RedColor();//Pintar color rojo
             target = KungfuPoint;
+            agent.stoppingDistance = 1;
+            estado = "combate";
+            GetComponent<NavMeshAgent>().avoidancePriority = 4;
         }
-        else { Debug.Log("Estan todos ocupados "); }
+        else {
+            Debug.Log("Estan todos ocupados ");
+            target = player;
+            agent.stoppingDistance = 6;
+            estado = "perseguir";
+        }
         
     }
 

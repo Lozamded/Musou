@@ -176,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002328546883400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 63.5, y: 2.3, z: 411.6}
+  m_LocalPosition: {x: 91.1, y: 2.9680076, z: 440.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4275377781446678}
@@ -393,6 +393,9 @@ MonoBehaviour:
   material:
   - {fileID: 2100000, guid: 1829738127541482a895692670703544, type: 2}
   - {fileID: 2100000, guid: 85ec52ba42503d44499552b9cb9784b1, type: 3}
+  - {fileID: 2100000, guid: 8b947889f04a01443a8fe03b0be7a883, type: 3}
+  - {fileID: 2100000, guid: 61dfe82fb38c3ed47ae746c20556ccca, type: 3}
+  - {fileID: 2100000, guid: 2136cc1a9100dd645bb35766620005bd, type: 2}
   CurrMat: {fileID: 2100000, guid: 48e8130f8426d4539a2879304cc512fb, type: 2}
 --- !u!114 &114686900958795560
 MonoBehaviour:
@@ -448,6 +451,7 @@ MonoBehaviour:
   bastion: {fileID: 0}
   bastiones: []
   KungfuPoint: {fileID: 0}
+  indiceKungfuPoint: 0
 --- !u!135 &135081526495422198
 SphereCollider:
   m_ObjectHideFlags: 1
