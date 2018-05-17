@@ -176,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002328546883400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 63.5, y: 2.3, z: 411.6}
+  m_LocalPosition: {x: 121.4, y: 2.3000076, z: 411.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4275377781446678}
@@ -449,6 +449,7 @@ MonoBehaviour:
   bastionPoint: 0
   path: []
   bastion: {fileID: 0}
+  target: {fileID: 0}
   bastiones: []
   KungfuPoint: {fileID: 0}
   indiceKungfuPoint: 0

@@ -33,7 +33,7 @@ public class EnemyController : EnemyStats {
     //Variables de ruta y bastiones
     public List<Transform> path = new List<Transform>();
     public GameObject bastion; //Se asignara el bastion donde fue creado;
-    Transform target;
+    public Transform target;
     Transform player;
     NavMeshAgent agent;
     public List<Transform> bastiones = new List<Transform>();
@@ -151,7 +151,7 @@ public class EnemyController : EnemyStats {
                                 break;
                             }
 
-                            Debug.Log("Me viro " + "al " + bastionPoint);
+                            //Debug.Log("Me viro " + "al " + bastionPoint);
                         }
                     }else
                     {
@@ -293,6 +293,8 @@ public class EnemyController : EnemyStats {
                     //Atacar el tarjet
                     FaceTarget(player);
                     agent.SetDestination(target.position);
+                    player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = true;
+                    player.gameObject.GetComponent<PlayerController>().KungFuEnemys[indiceKungfuPoint] = this.transform;
 
                     if (distance_player > lookRadius)
                     {
@@ -300,6 +302,7 @@ public class EnemyController : EnemyStats {
                         {
                             //Debug.Log("Perdi mi target");
                             player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
+                            player.gameObject.GetComponent<PlayerController>().KungFuEnemys[indiceKungfuPoint] = null;
                             GetComponentInChildren<colorChanger>().GrayColor();//Pintar color plateado
                             target = player;
                             KungfuPoint = null;
@@ -308,18 +311,7 @@ public class EnemyController : EnemyStats {
                         }
                     }
 
-                    /*
-                    if (KungfuPoint != null)
-                    {
-                        if (player.gameObject.GetComponent<PlayerController>().Rotando == true)
-                        {
-                            Debug.Log("Vuelta...");
-                            rotarCirculo();
-                        }
-                    }*/
-                   
-
-                    break;
+                break;
 
                 case "delante":
 
@@ -435,10 +427,11 @@ public class EnemyController : EnemyStats {
 
         foreach (bool Point in player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker)
         {
-            if (Point == false)
+            if (Point == false && player.gameObject.GetComponent<PlayerController>().Rotando == false)
             {
                 KungfuPoint = player.gameObject.GetComponent<PlayerController>().KungFuPoints[indiceKungfuPoint].transform;
                 player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = true;
+                player.gameObject.GetComponent<PlayerController>().KungFuEnemys[indiceKungfuPoint] = this.gameObject.transform;
                 break;
             }
             indiceKungfuPoint++;
@@ -460,21 +453,6 @@ public class EnemyController : EnemyStats {
             estado = "perseguir";
         }
         
-    }
-
-    public void rotarCirculo()
-    {
-        if (indiceKungfuPoint < 4)
-        {
-            indiceKungfuPoint += 1;
-        }
-        else {
-            Debug.Log("Vuelvo a 0");
-            indiceKungfuPoint = 0;
-        }
-        KungfuPoint = player.gameObject.GetComponent<PlayerController>().KungFuPoints[indiceKungfuPoint].transform;
-        player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = true;
-        player.gameObject.GetComponent<PlayerController>().Rotando = false;
     }
 
 

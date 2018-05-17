@@ -16,8 +16,11 @@ public class PlayerController : MonoBehaviour
     public List<Transform> KungFuEnemys = new List<Transform>(5); //Siempre necesito 5 enemigos
     public float kungFuRadio = 4;
     float timer = 0; // para rotar en el circulo de KungFu
+    float timerRotar = 0;
     float rotarPuntos;
+    float rotarTime;
     public bool Rotando = false;
+
 
     Camera cam;
     PlayerMotor motor;
@@ -36,7 +39,14 @@ public class PlayerController : MonoBehaviour
         KungFuPointsChecker[3] = false;
         KungFuPointsChecker[4] = false;
 
+        KungFuEnemys[0] = null;
+        KungFuEnemys[1] = null;
+        KungFuEnemys[2] = null;
+        KungFuEnemys[3] = null;
+        KungFuEnemys[4] = null;
+
         rotarPuntos = UnityEngine.Random.Range(5,20);
+        rotarTime = rotarPuntos+3f;
     }
 	
 	// Update is called once per frame
@@ -83,16 +93,29 @@ public class PlayerController : MonoBehaviour
         }
 
         //Circulo de KungFu
-        /*
-        timer += Time.deltaTime;
-        if(timer > rotarPuntos)
-        {
-            timer = 0;
-            rotarPuntos = UnityEngine.Random.Range(5,20);
-            Debug.Log("Rotar circulo de KungFU");
-            Rotando = true;
+        if (KungFuEnemys[0] != null || KungFuEnemys[1] != null || KungFuEnemys[2] != null || KungFuEnemys[3] != null || KungFuEnemys[4] != null)
+        { 
+            timer += Time.deltaTime;
+            timerRotar += Time.deltaTime;
+            if (timer > rotarPuntos)
+            {
+                Rotando = true;
+                Debug.Log("Rotar circulo de KungFU");
+                Rotacion();
+                rotarPuntos = UnityEngine.Random.Range(5, 20);
+                timer = 0;
+                //Rotando = false;
+            }
+            if (timerRotar > rotarTime)
+            {
+                timerRotar = 0;
+                rotarTime = rotarPuntos + 3f;
+                Rotando = false;
+            }
+            else {
+                Rotando = false;
+            }
         }
-        */
 
     }
 
@@ -126,6 +149,42 @@ public class PlayerController : MonoBehaviour
     public bool[] GetKungFuPoints()//Obtener el arreglo con los indices de los puntos
     {
         return  KungFuPointsChecker;
+    }
+
+    void Rotacion()
+    {
+        Transform Enemy;
+        for (int i = 0; i<KungFuPointsChecker.Length; i++ )
+        {
+            if (KungFuPointsChecker[i] == true)
+            {
+                if(i < 4)
+                {
+                    KungFuPointsChecker[i] = false;
+                    if(KungFuEnemys[i] != null)
+                    {
+                        Enemy = KungFuEnemys[i];
+                        KungFuEnemys[i].gameObject.GetComponent<EnemyController>().indiceKungfuPoint = i + 1;
+                        KungFuEnemys[i].GetComponent<EnemyController>().KungfuPoint = KungFuPoints[i + 1].transform;
+                        KungFuEnemys[i].gameObject.GetComponent<EnemyController>().target = KungFuEnemys[i].gameObject.GetComponent<EnemyController>().KungfuPoint;
+                        KungFuEnemys[i] = null;
+                    }
+                }
+                else{
+
+                    KungFuPointsChecker[i] = false;
+                    if (KungFuEnemys[i] != null)
+                    {
+                        Enemy = KungFuEnemys[i];
+                        KungFuEnemys[i].gameObject.GetComponent<EnemyController>().indiceKungfuPoint = 0;
+                        KungFuEnemys[i].gameObject.GetComponent<EnemyController>().KungfuPoint = KungFuPoints[0].transform;
+                        KungFuEnemys[i].gameObject.GetComponent<EnemyController>().target = KungFuEnemys[i].gameObject.GetComponent<EnemyController>().KungfuPoint;
+                        KungFuEnemys[i] = null;
+                    }
+
+                }
+            }
+        }
     }
 
 
