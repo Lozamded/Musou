@@ -50,6 +50,7 @@ public class EnemyController : EnemyStats {
 	// Use this for initialization
 	void Start ()
     {
+        //GetComponentInChildren<colorChanger>().GrayColor();//Pintar color negro
         player = PlayerManager.instance.player.transform; //Para usar un target generico para le enemigo que es el personaje.
         target = player; //Para usar un target generico para le enemigo que es el personaje.
 

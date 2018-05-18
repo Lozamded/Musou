@@ -15,6 +15,7 @@ public class MovingBlock : MonoBehaviour
     void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
+        GetComponent<NavMeshAgent>().avoidancePriority = 1;
         agent.speed = velocidad;
 
     }

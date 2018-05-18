@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     {
         cam = Camera.main;
         motor = GetComponent<PlayerMotor>();
+        GetComponent<NavMeshAgent>().avoidancePriority = 1;
+
 
         KungFuPointsChecker[0] = false;
         KungFuPointsChecker[1] = false;
@@ -46,7 +48,7 @@ public class PlayerController : MonoBehaviour
         KungFuEnemys[4] = null;
 
         rotarPuntos = UnityEngine.Random.Range(5,20);
-        rotarTime = rotarPuntos+3f;
+        rotarTime = rotarPuntos+1f;
     }
 	
 	// Update is called once per frame
@@ -83,24 +85,27 @@ public class PlayerController : MonoBehaviour
             //Si el rayo toca
             if (Physics.Raycast(ray, out hit, 100))
             {
+
                 Interactive interactable = hit.collider.GetComponent<Interactive>();
                 if (interactable != null)
                 {
                     SetFocus(interactable);
 
                 }
+
+
             }
         }
 
         //Circulo de KungFu
         if (KungFuEnemys[0] != null || KungFuEnemys[1] != null || KungFuEnemys[2] != null || KungFuEnemys[3] != null || KungFuEnemys[4] != null)
-        { 
+        {
             timer += Time.deltaTime;
             timerRotar += Time.deltaTime;
             if (timer > rotarPuntos)
             {
                 Rotando = true;
-                Debug.Log("Rotar circulo de KungFU");
+                //Debug.Log("Rotar circulo de KungFU");
                 Rotacion();
                 rotarPuntos = UnityEngine.Random.Range(5, 20);
                 timer = 0;
@@ -109,10 +114,7 @@ public class PlayerController : MonoBehaviour
             if (timerRotar > rotarTime)
             {
                 timerRotar = 0;
-                rotarTime = rotarPuntos + 3f;
-                Rotando = false;
-            }
-            else {
+                rotarTime = rotarPuntos + 1f;
                 Rotando = false;
             }
         }

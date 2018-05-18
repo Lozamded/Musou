@@ -12,6 +12,11 @@ public class Interactive : MonoBehaviour {
 
     bool hasInteracted = false;
 
+    private void Awake()
+    {
+        interactionTransform = this.gameObject.transform;
+    }
+
     public virtual void Interact()
     {
         //Esto significa que este metodo sera reescrito

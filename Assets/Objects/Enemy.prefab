@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 54104956906636128}
   - component: {fileID: 114686900958795560}
   - component: {fileID: 114845278571018714}
+  - component: {fileID: 114032039191401338}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -176,7 +177,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002328546883400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 121.4, y: 2.3000076, z: 411.9}
+  m_LocalPosition: {x: 91.1, y: 2.9680076, z: 440.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4275377781446678}
@@ -379,6 +380,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114032039191401338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002328546883400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba085b9f3b060134ba69110da177f3ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 3
+  interactionTransform: {fileID: 0}
 --- !u!114 &114164396800110352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,12 +405,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material:
-  - {fileID: 2100000, guid: 1829738127541482a895692670703544, type: 2}
+  - {fileID: 2100000, guid: 61dfe82fb38c3ed47ae746c20556ccca, type: 3}
   - {fileID: 2100000, guid: 85ec52ba42503d44499552b9cb9784b1, type: 3}
   - {fileID: 2100000, guid: 8b947889f04a01443a8fe03b0be7a883, type: 3}
   - {fileID: 2100000, guid: 61dfe82fb38c3ed47ae746c20556ccca, type: 3}
   - {fileID: 2100000, guid: 2136cc1a9100dd645bb35766620005bd, type: 2}
-  CurrMat: {fileID: 2100000, guid: 48e8130f8426d4539a2879304cc512fb, type: 2}
+  CurrMat: {fileID: 2100000, guid: 61dfe82fb38c3ed47ae746c20556ccca, type: 3}
 --- !u!114 &114686900958795560
 MonoBehaviour:
   m_ObjectHideFlags: 1
