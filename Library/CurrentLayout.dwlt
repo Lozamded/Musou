@@ -70,7 +70,7 @@ MonoBehaviour:
   m_MinSize: {x: 332, y: 271}
   m_MaxSize: {x: 14002, y: 10021}
   vertical: 0
-  controlID: 52
+  controlID: 104
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -325,8 +325,8 @@ MonoBehaviour:
     y: 0
     width: 621
     height: 562
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 22}
   m_Panes:
   - {fileID: 22}
@@ -352,8 +352,8 @@ MonoBehaviour:
     y: 562
     width: 621
     height: 385
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -406,7 +406,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoom: 0
     m_UniformScale: 1
     m_UpDirection: 1
@@ -464,24 +464,24 @@ MonoBehaviour:
     height: 597
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
-    scrollPos: {x: 0, y: 588}
-    m_SelectedIDs: 242a0000
-    m_LastClickedID: 0
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 242d0000
+    m_LastClickedID: 11556
     m_ExpandedIDs: 98fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Move7
-      m_OriginalName: Move7
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 11566
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 10}
     m_SearchString: 
@@ -523,9 +523,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 73.5171, y: 20.626354, z: 418.06088}
+    m_Target: {x: 93.05786, y: 19.83714, z: 408.42493}
     speed: 2
-    m_Value: {x: 73.5171, y: 20.626354, z: 418.06088}
+    m_Value: {x: 93.05786, y: 19.83714, z: 408.42493}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -553,9 +553,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.6789521, y: 0.008807874, z: -0.008147469, w: -0.73408455}
   m_Size:
-    m_Target: 31.293398
+    m_Target: 40.66962
     speed: 2
-    m_Value: 31.293398
+    m_Value: 40.66962
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -649,18 +649,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Objects
+    - Assets/Scripts/Controllers
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Objects
+  - Assets/Scripts/Controllers
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Unity Projects\Musou
   m_IsLocked: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 10}
-    m_SelectedIDs: cc2a0000
-    m_LastClickedID: 10956
+    m_SelectedIDs: 0e2a0000
+    m_LastClickedID: 10766
     m_ExpandedIDs: 00000000fe290000102a00003c2a0000842a0000682b0000f22b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -798,7 +798,7 @@ MonoBehaviour:
     width: 619
     height: 541
   m_PersistentViewDataDictionary: {fileID: 0}
-  m_ScrollPosition: {x: 0, y: 120}
+  m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: -151

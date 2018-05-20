@@ -86,6 +86,10 @@ public class EnemyController : EnemyStats {
                 player.gameObject.GetComponent<PlayerController>().KungFuEnemys[indiceKungfuPoint] = null;
             }
             estado = "muerto";
+            if(lider != null)
+            {
+                lider.gameObject.GetComponent<EnemyController>().soldados -= 1;
+            }
             Destroy(gameObject);
         }
 
