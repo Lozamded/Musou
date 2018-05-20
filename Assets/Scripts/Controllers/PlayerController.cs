@@ -90,6 +90,10 @@ public class PlayerController : MonoBehaviour
                 if (interactable != null)
                 {
                     SetFocus(interactable);
+                    if(hit.collider.name == "Enemy" )
+                    {
+                        Debug.Log("Toque_enemigo");
+                    }
 
                 }
 
@@ -131,6 +135,7 @@ public class PlayerController : MonoBehaviour
             }
             focus = newFocus;
             motor.FollowTarget(newFocus);
+            motor.StopFollowingTarget();
         }
 
         newFocus.OnFocused(transform);

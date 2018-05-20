@@ -76,7 +76,18 @@ public class EnemyController : EnemyStats {
        float distance_player = Vector3.Distance(player.position, transform.position);
        float distance_bastion = Vector3.Distance(bastion.transform.position, transform.position);
 
-       
+
+        if (this.gameObject.GetComponent<EnemyStats>().vida < 0)
+        {
+            Debug.Log("Destroy");
+            if(estado == "combate")
+            {
+                player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
+                player.gameObject.GetComponent<PlayerController>().KungFuEnemys[indiceKungfuPoint] = null;
+            }
+            estado = "muerto";
+            Destroy(gameObject);
+        }
 
         if (es_lider == true) //Si es un lider
         {   

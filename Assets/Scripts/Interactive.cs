@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interactive : MonoBehaviour {
 
-    public float radius = 3f;
+    public float radius = 12f;
     public Transform interactionTransform;
 
     bool isFocus = false;
@@ -21,6 +21,12 @@ public class Interactive : MonoBehaviour {
     {
         //Esto significa que este metodo sera reescrito
         Debug.Log("Interactuar con " + interactionTransform.name);
+        if (interactionTransform.GetComponent<EnemyController>().estado == "combate")
+        {
+            interactionTransform.GetComponent<EnemyStats>().vida -= 5;
+            Debug.Log("Vida = " + interactionTransform.GetComponent<EnemyStats>().vida);
+            //Debug.Log("Vida = " + interactionTransform.GetComponent<EnemyController>().vida);
+        }
     }
 
     void Update()
@@ -53,7 +59,7 @@ public class Interactive : MonoBehaviour {
     void OnDrawGizmosSelected ()
     {
         Gizmos.color = Color.yellow;
-        //Gizmos.DrawWireSphere(interactionTransform.position, radius);
+        Gizmos.DrawWireSphere(interactionTransform.position, radius);
     }
 
 }
