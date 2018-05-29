@@ -8,6 +8,8 @@ public class EnemyStats : MonoBehaviour {
 
     public bool es_lider = false;
     public GameObject lider;
+
+    //Atributos
     public float resistencia;
     public float velocidad;
     public float vida;
@@ -23,7 +25,7 @@ public class EnemyStats : MonoBehaviour {
         //Debug.Log("vida: " + vida);
         resistencia = Random.Range(10f, 20f);
         velocidad = Random.Range(1f, 8f);
-        ataque = Random.Range(10, 60);
+        ataque = Random.Range(10, 45);
         
         /*
         if( vida > 15 && resistencia > 15 && ataque > 30)
@@ -41,7 +43,17 @@ public class EnemyStats : MonoBehaviour {
 
     public float getVida()
     {
-        return velocidad;
+        return vida;
+    }
+
+    public float getResistencia()
+    {
+        return resistencia;
+    }
+
+    public int getAtaque()
+    {
+        return ataque;
     }
 
 

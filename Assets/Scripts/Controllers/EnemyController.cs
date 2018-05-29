@@ -222,7 +222,7 @@ public class EnemyController : EnemyStats {
                     }
                     else
                     {
-                        agent.SetDestination(bastion.transform.position);
+                        agent.SetDestination(bastion.transform.position); //Ir al centro del bastion
                         //Debug.Log("Me pase me devuelvo al bastion");
                         //Debug.Log("voy para: " + bastion.transform.position);
                     }
