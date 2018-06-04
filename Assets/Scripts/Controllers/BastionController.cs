@@ -36,7 +36,7 @@ public class BastionController : MonoBehaviour {
             timer = 0f;
             tiempo_reunion = UnityEngine.Random.Range(15f, 30f);
             
-            Debug.Log("Revisar cuantas hay");
+            //Debug.Log("Revisar cuantas hay");
             Collider[] colliders = Physics.OverlapSphere(transform.position, radius: centerRadius, layerMask: Layer);           
             Array.Sort(colliders, new DistanceComparer(transform));
             int[] ponderado_lider = new int[colliders.Length];

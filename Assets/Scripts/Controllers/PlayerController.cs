@@ -48,21 +48,21 @@ public class PlayerController : MonoBehaviour
         KungFuEnemys[4] = null;
 
         rotarPuntos = UnityEngine.Random.Range(5,20);
-        rotarTime = rotarPuntos+1f;
+        rotarTime = rotarPuntos+0.65f;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         //Posicion de los puntos para el circulo de kung fu
-        KungFuPoints[0].transform.position = new Vector3(this.transform.position.x - (kungFuRadio/2), this.transform.position.y, this.transform.position.z + kungFuRadio);
+        KungFuPoints[0].transform.position = new Vector3(this.transform.position.x - (kungFuRadio / 2), this.transform.position.y, this.transform.position.z + kungFuRadio);
         KungFuPoints[1].transform.position = new Vector3(this.transform.position.x - kungFuRadio, this.transform.position.y, this.transform.position.z);
         KungFuPoints[2].transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - kungFuRadio);
         KungFuPoints[3].transform.position = new Vector3(this.transform.position.x + kungFuRadio, this.transform.position.y, this.transform.position.z);
         KungFuPoints[4].transform.position = new Vector3(this.transform.position.x + (kungFuRadio / 2), this.transform.position.y, this.transform.position.z + kungFuRadio);
 
         if (Input.GetMouseButtonDown(0))
-        { 
+        {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
                 motor.MoveToPoint(hit.point);
 
                 RemoveFocus();//No focusear ningun objeto
- 
+
             }
         }
 
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
                 if (interactable != null)
                 {
                     SetFocus(interactable);
-                    if(hit.collider.name == "Enemy" )
+                    if (hit.collider.name == "Enemy")
                     {
                         Debug.Log("Toque_enemigo");
                     }
@@ -118,11 +118,15 @@ public class PlayerController : MonoBehaviour
             if (timerRotar > rotarTime)
             {
                 timerRotar = 0;
-                rotarTime = rotarPuntos + 1f;
+                rotarTime = rotarPuntos + 0.65f;
                 Rotando = false;
             }
         }
 
+        if (KungFuEnemys[0] == null && KungFuEnemys[1] == null && KungFuEnemys[2] == null && KungFuEnemys[3] == null && KungFuEnemys[4] == null)
+        {
+            Rotando = false;
+        }
     }
 
     void SetFocus (Interactive newFocus)
