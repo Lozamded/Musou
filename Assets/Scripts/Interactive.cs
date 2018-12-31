@@ -17,15 +17,17 @@ public class Interactive : MonoBehaviour {
         interactionTransform = this.gameObject.transform;
     }
 
-    public virtual void Interact()
+    public virtual void Interact()//Combate
     {
         //Esto significa que este metodo sera reescrito
         Debug.Log("Interactuar con " + interactionTransform.name);
         if (interactionTransform.GetComponent<EnemyController>().estado == "combate")
         {
-            interactionTransform.GetComponent<EnemyStats>().vida -= 5;
+            interactionTransform.GetComponent<EnemyStats>().vida -= player.gameObject.GetComponent<PlayerController>().ataque; 
             Debug.Log("Vida = " + interactionTransform.GetComponent<EnemyStats>().vida);
-            //Debug.Log("Vida = " + interactionTransform.GetComponent<EnemyController>().vida);
+            player.gameObject.GetComponent<PlayerController>().VidaEnemigo.text = interactionTransform.GetComponent<EnemyStats>().getVida().ToString();
+            player.gameObject.GetComponent<PlayerController>().Dano.text = "-" + player.gameObject.GetComponent<PlayerController>().ataque.ToString();
+            player.gameObject.GetComponent<PlayerController>().Dano.GetComponent<TextoDano>().move();
         }
     }
 

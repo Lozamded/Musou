@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using TMPro;
 
 public class EnemyController : EnemyStats {
 
@@ -47,8 +48,13 @@ public class EnemyController : EnemyStats {
     public Transform KungfuPoint;
     public int indiceKungfuPoint;
 
-	// Use this for initialization
-	void Start ()
+    //Letras 
+    //public TextMeshProUGUI Vida;
+    //public TextMeshPro dano;
+
+
+    // Use this for initialization
+    void Start ()
     {
         //GetComponentInChildren<colorChanger>().GrayColor();//Pintar color negro
         player = PlayerManager.instance.player.transform; //Para usar un target generico para le enemigo que es el personaje.
@@ -180,10 +186,30 @@ public class EnemyController : EnemyStats {
 
                 case "persecucion":
 
+                    agent.SetDestination(player.position);
+
                     if (distance_player < lookRadius)
                     {
-                        agent.SetDestination(target.position);
+                        
                         agent.speed = getVelocidad();
+                        Debug.Log("Ver si quiero entrar al ciruclo");
+
+                        if (distance_player <= circleRadius && soldados < 5)
+                        {
+                            Debug.Log("Me acerco al circurlo");
+                            //estado = "Esperando circulo";
+                            ValidarCirculo();
+                        }
+                        else
+                        {
+                            if (KungfuPoint != null)
+                            {
+                                //Debug.Log("Perdi mi target");
+                                player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
+                                GetComponentInChildren<colorChanger>().BlackColor();//Pintar color negro
+                            }
+                            estado = "persecucion";
+                        }
 
                         if (distance <= agent.stoppingDistance)
                         {
@@ -194,8 +220,45 @@ public class EnemyController : EnemyStats {
                     else
                     {
                         estado = estado_previo;
+                        agent.SetDestination(target.position);
                     }
                 break;
+
+                    /*
+                    if (distance_player <= lookRadius)
+                    {
+                        if (distance_player <= circleRadius)
+                        {
+                            //Debug.Log("Me acerco al circurlo");
+                            //estado = "Esperando circulo";
+                            ValidarCirculo();
+                        }
+                        else
+                        {
+                            if (KungfuPoint != null)
+                            {
+                                //Debug.Log("Perdi mi target");
+                                player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
+                                GetComponentInChildren<colorChanger>().GrayColor();//Pintar color plateado
+                            }
+                            estado = "perseguir";
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        agent.SetDestination(target.position);
+                        agent.stoppingDistance = 1;
+
+                        if (distance > 25)
+                        {
+                            velocidad = lider.gameObject.GetComponent<EnemyStats>().velocidad + 3;
+                        }
+                    }
+                    */
+
             }
      
         }

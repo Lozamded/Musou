@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(PlayerMotor))]
 
@@ -14,18 +15,22 @@ public class PlayerController : MonoBehaviour
     public LayerMask movementMask;
     public List<Transform> KungFuPoints = new List<Transform>(5); //Siempre necesito 5 puntos
     public List<Transform> KungFuEnemys = new List<Transform>(5); //Siempre necesito 5 enemigos
+    public bool[] KungFuPointsChecker = new bool[5];
     public float kungFuRadio = 4;
     float timer = 0; // para rotar en el circulo de KungFu
     float timerRotar = 0;
     float rotarPuntos;
     float rotarTime;
     public bool Rotando = false;
-
+    public float ataque = 5f;
 
     Camera cam;
     PlayerMotor motor;
 
-    public bool[] KungFuPointsChecker = new bool[5];
+    public TextMeshProUGUI VidaEnemigo;
+    public TextMeshProUGUI Dano;
+
+   
 
     // Use this for initialization
     void Awake ()
@@ -49,6 +54,9 @@ public class PlayerController : MonoBehaviour
 
         rotarPuntos = UnityEngine.Random.Range(5,20);
         rotarTime = rotarPuntos+0.65f;
+
+        VidaEnemigo.text = "";
+        Dano.text = "";
     }
 
     // Update is called once per frame
@@ -80,6 +88,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            VidaEnemigo.transform.position = Input.mousePosition;
+            VidaEnemigo.GetComponent<TextoVidaEnemigo>().Resetext();
+            Dano.transform.position = Input.mousePosition;
+
             RaycastHit hit;
 
             //Si el rayo toca
@@ -92,7 +104,9 @@ public class PlayerController : MonoBehaviour
                     SetFocus(interactable);
                     if (hit.collider.name == "Enemy")
                     {
-                        Debug.Log("Toque_enemigo");
+                        //Debug.Log("Toque_enemigo");
+
+
                     }
 
                 }
