@@ -21,14 +21,14 @@ public class TextoVidaEnemigo : MonoBehaviour
     public void Resetext()
     {
         reseText(time);
-        Debug.Log("Borrar texto");
+        //Debug.Log("Borrar texto");
         this.gameObject.GetComponent<TextMeshProUGUI>().text = "";
     }
 
     public IEnumerator reseText(float time)
     {
         yield return new WaitForSeconds(time);
-        Debug.Log("texto borrado");   
+        //Debug.Log("texto borrado");   
         this.gameObject.GetComponent<TextMeshProUGUI>().text = "";
 
     }

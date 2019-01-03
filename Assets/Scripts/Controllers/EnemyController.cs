@@ -101,7 +101,6 @@ public class EnemyController : EnemyStats {
 
         if (es_lider == true) //Si es un lider
         {   
-
             switch (estado)
             {
                 case "reclutando":
@@ -135,7 +134,7 @@ public class EnemyController : EnemyStats {
                     }
 
 
-                    break;
+                break;
 
                 case "busqueda":
 
@@ -178,13 +177,14 @@ public class EnemyController : EnemyStats {
                     }else
                     {
                         estado_previo = estado;
-                        estado = "Persecucion";
+                        estado = "perseguir";
+                        Debug.Log("Soy un lider y estoy cerca del jugador");
                     }
 
                 break;
 
 
-                case "persecucion":
+                case "perseguir":
 
                     agent.SetDestination(player.position);
 
@@ -192,13 +192,18 @@ public class EnemyController : EnemyStats {
                     {
                         
                         agent.speed = getVelocidad();
-                        Debug.Log("Ver si quiero entrar al ciruclo");
+                        //Debug.Log("Ver si quiero entrar al ciruclo");
 
-                        if (distance_player <= circleRadius && soldados < 5)
+                        if (distance_player <= circleRadius)
                         {
-                            Debug.Log("Me acerco al circurlo");
+                            //Debug.Log("Me acerco al circurlo");
                             //estado = "Esperando circulo";
-                            ValidarCirculo();
+                            if(soldados < 5)
+                            {
+                                //Debug.Log("Puedo entrar al circulo");
+                                ValidarCirculo();
+                            }
+                            
                         }
                         else
                         {
@@ -208,7 +213,7 @@ public class EnemyController : EnemyStats {
                                 player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
                                 GetComponentInChildren<colorChanger>().BlackColor();//Pintar color negro
                             }
-                            estado = "persecucion";
+                            estado = "perseguir";
                         }
 
                         if (distance <= agent.stoppingDistance)
@@ -219,45 +224,15 @@ public class EnemyController : EnemyStats {
                     }
                     else
                     {
+                        //Debug.Log("Vuelvo a buscar bastiones");
                         estado = estado_previo;
                         agent.SetDestination(target.position);
                     }
                 break;
 
-                    /*
-                    if (distance_player <= lookRadius)
-                    {
-                        if (distance_player <= circleRadius)
-                        {
-                            //Debug.Log("Me acerco al circurlo");
-                            //estado = "Esperando circulo";
-                            ValidarCirculo();
-                        }
-                        else
-                        {
-                            if (KungfuPoint != null)
-                            {
-                                //Debug.Log("Perdi mi target");
-                                player.gameObject.GetComponent<PlayerController>().KungFuPointsChecker[indiceKungfuPoint] = false;
-                                GetComponentInChildren<colorChanger>().GrayColor();//Pintar color plateado
-                            }
-                            estado = "perseguir";
-                        }
-
-
-
-                    }
-                    else
-                    {
-                        agent.SetDestination(target.position);
-                        agent.stoppingDistance = 1;
-
-                        if (distance > 25)
-                        {
-                            velocidad = lider.gameObject.GetComponent<EnemyStats>().velocidad + 3;
-                        }
-                    }
-                    */
+                  
+                   
+                   
 
             }
      
@@ -310,7 +285,7 @@ public class EnemyController : EnemyStats {
                                 //Debug.Log("Encontre un simil");
                                 if (item.gameObject.GetComponent<EnemyController>().es_lider == true)
                                 {
-                                    item.gameObject.GetComponent<EnemyController>().soldados += 1;
+                                    //item.gameObject.GetComponent<EnemyController>().soldados += 1;
                                     //Debug.Log("Tengo nuevo lider: ");
                                     //Debug.Log(item.name);
                                     //target = item.gameObject.transform;
@@ -318,9 +293,10 @@ public class EnemyController : EnemyStats {
                                     lider = item.gameObject;
                                     GetComponent<EnemyStats>().velocidad = lider.gameObject.GetComponent<EnemyStats>().velocidad - 1;
                                     lider.gameObject.GetComponent<EnemyController>().soldados += 1;
+                                    estado_previo = estado;
                                     estado = "perseguir";
-                                    
-                               
+
+
                                 }
                             }
 
@@ -357,6 +333,7 @@ public class EnemyController : EnemyStats {
                     }
                     else
                     {
+
                         agent.SetDestination(target.position);
                         agent.stoppingDistance = 1;
 
@@ -364,6 +341,7 @@ public class EnemyController : EnemyStats {
                         {
                             velocidad = lider.gameObject.GetComponent<EnemyStats>().velocidad + 3;
                         }
+                        estado = estado_previo;
                     }
 
                 break;

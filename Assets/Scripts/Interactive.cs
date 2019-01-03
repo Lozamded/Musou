@@ -25,7 +25,10 @@ public class Interactive : MonoBehaviour {
         {
             interactionTransform.GetComponent<EnemyStats>().vida -= player.gameObject.GetComponent<PlayerController>().ataque; 
             Debug.Log("Vida = " + interactionTransform.GetComponent<EnemyStats>().vida);
-            player.gameObject.GetComponent<PlayerController>().VidaEnemigo.text = interactionTransform.GetComponent<EnemyStats>().getVida().ToString();
+            if(interactionTransform.GetComponent<EnemyStats>().vida > 0)
+            {
+                player.gameObject.GetComponent<PlayerController>().VidaEnemigo.text = interactionTransform.GetComponent<EnemyStats>().getVida().ToString();
+            }
             player.gameObject.GetComponent<PlayerController>().Dano.text = "-" + player.gameObject.GetComponent<PlayerController>().ataque.ToString();
             player.gameObject.GetComponent<PlayerController>().Dano.GetComponent<TextoDano>().move();
         }
