@@ -178,6 +178,7 @@ public class PlayerController : MonoBehaviour
 
     void Rotacion()
     {
+        Rotando = true;
         Transform Enemy;
         for (int i = 0; i<KungFuPointsChecker.Length; i++ )
         {
@@ -210,6 +211,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        Rotando = false;
     }
 
 

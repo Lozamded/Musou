@@ -30,6 +30,7 @@ public class EnemyController : EnemyStats {
     public int generadorPoint = 0; //Generador actual
     int shearchPoint = 0;
     public int bastionPoint = 0;
+    public bool tieneLider = false;
 
     //Variables de ruta y bastiones
     public List<Transform> path = new List<Transform>();
@@ -198,7 +199,7 @@ public class EnemyController : EnemyStats {
                         {
                             //Debug.Log("Me acerco al circurlo");
                             //estado = "Esperando circulo";
-                            if(soldados < 5)
+                            if(soldados < 1)
                             {
                                 //Debug.Log("Puedo entrar al circulo");
                                 ValidarCirculo();
@@ -292,11 +293,13 @@ public class EnemyController : EnemyStats {
                                     target = item.gameObject.GetComponent<EnemyController>().bottomObject.transform;
                                     lider = item.gameObject;
                                     GetComponent<EnemyStats>().velocidad = lider.gameObject.GetComponent<EnemyStats>().velocidad - 1;
-                                    lider.gameObject.GetComponent<EnemyController>().soldados += 1;
+                                    if(tieneLider == false)
+                                    {
+                                        tieneLider = true;
+                                        lider.gameObject.GetComponent<EnemyController>().soldados += 1;
+                                    }
                                     estado_previo = estado;
                                     estado = "perseguir";
-
-
                                 }
                             }
 
